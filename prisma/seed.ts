@@ -8,6 +8,8 @@ import {PokemonType} from "../src/generated/prisma/enums";
 async function main() {
     console.log("🌱 Starting database seed...");
 
+    await prisma.deckCard.deleteMany();
+    await prisma.deck.deleteMany();
     await prisma.card.deleteMany();
     await prisma.user.deleteMany();
 
@@ -55,6 +57,46 @@ async function main() {
             })
         )
     );
+
+    // Fonction pour créer un deck avec 10 cartes aléatoires
+    async function createDeckRandom(userId: number, deckName: string) {
+        // Créer le deck
+        const deck = await prisma.deck.create({
+            data: {
+                name: deckName,
+                userId: userId,
+            },
+        });
+
+        // Obtenir tous les IDs des cartes créées
+        const cardIds = createdCards.map(card => card.id);
+
+        // Sélectionner 10 cartes aléatoires sans répétition
+        const selectedCardIds: number[] = [];
+        while (selectedCardIds.length < 10) {
+            const randomIndex = Math.floor(Math.random() * cardIds.length);
+            const randomCardId = cardIds[randomIndex];
+            if (!selectedCardIds.includes(randomCardId)) {
+                selectedCardIds.push(randomCardId);
+            }
+        }
+
+        // Créer les associations DeckCard
+        await prisma.deckCard.createMany({
+            data: selectedCardIds.map(cardId => ({
+                deckId: deck.id,
+                cardId: cardId,
+            })),
+        });
+
+        return deck;
+    }
+
+    // Créer les decks pour Red et Blue
+    const redDeck = await createDeckRandom(redUser.id, "Starter Deck");
+    const blueDeck = await createDeckRandom(blueUser.id, "Starter Deck");
+
+    console.log(" Created starter decks with 10 random cards for both users");
 
     console.log(`✅ Created ${pokemonData.length} Pokemon cards`);
 
