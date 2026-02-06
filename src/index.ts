@@ -22,7 +22,16 @@ app.use(express.json());
 // Serve static files (Socket.io test client)
 app.use(express.static('public'));
 
-// Health check endpoint
+/**
+ * GET /api/health
+ * Health check endpoint to verify server status.
+ * @param {Request} _req - Express request object (not used)
+ * @param {Response} res - Express response object
+ * @returns {void} JSON response with server status
+ * @example
+ * GET /api/health
+ * Response: { "status": "ok", "message": "TCG Backend Server is running" }
+ */
 app.get("/api/health", (_req, res) => {
     res.json({status: "ok", message: "TCG Backend Server is running"});
 });

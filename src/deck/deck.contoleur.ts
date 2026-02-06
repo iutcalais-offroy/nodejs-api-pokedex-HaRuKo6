@@ -1,6 +1,17 @@
 import { Request, Response } from 'express'
 import { DeckService } from './deck.service'
 
+/**
+ * Creates a new deck for the authenticated user.
+ * Validates deck requirements and associates cards with the deck.
+ * @param {Request} req - Express request object with deck data in body and user authentication
+ * @param {Response} res - Express response object
+ * @returns {Promise<void>} JSON response with created deck or error
+ * @throws {Error} Returns 400 for validation errors, 500 for internal server errors
+ * @example
+ * Body: { "name": "My Deck", "cards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] }
+ * Response: { "id": 1, "name": "My Deck", "userId": 1, "createdAt": "2023-01-01T00:00:00.000Z", "updatedAt": "2023-01-01T00:00:00.000Z", "deckCards": [...] }
+ */
 export const createDeck = async (req: Request, res: Response): Promise<void> => {
     try {
         const { name, cards } = req.body
@@ -23,6 +34,16 @@ export const createDeck = async (req: Request, res: Response): Promise<void> => 
     }
 }
 
+/**
+ * Retrieves all decks belonging to the authenticated user.
+ * @param {Request} req - Express request object with user authentication
+ * @param {Response} res - Express response object
+ * @returns {Promise<void>} JSON response with array of user's decks or error
+ * @throws {Error} Returns 500 for internal server errors
+ * @example
+ * GET /api/decks
+ * Response: [{ "id": 1, "name": "My Deck", "userId": 1, "createdAt": "2023-01-01T00:00:00.000Z", "updatedAt": "2023-01-01T00:00:00.000Z", "deckCards": [...] }, ...]
+ */
 export const getUserDecks = async (req: Request, res: Response): Promise<void> => {
     try {
         const userId = req.user!.userId
@@ -38,6 +59,19 @@ export const getUserDecks = async (req: Request, res: Response): Promise<void> =
     }
 }
 
+/**
+ * Retrieves a specific deck by ID for the authenticated user.
+ * Ensures the deck belongs to the requesting user.
+ * @param {Request} req - Express request object with deck ID in params and user authentication
+ * @param {Response} res - Express response object
+ * @returns {Promise<void>} JSON response with deck details or error
+ * @throws {Error} Returns 400 for invalid deck ID
+ * @throws {Error} Returns 404 if deck not found or doesn't belong to user
+ * @throws {Error} Returns 500 for internal server errors
+ * @example
+ * GET /api/decks/1
+ * Response: { "id": 1, "name": "My Deck", "userId": 1, "createdAt": "2023-01-01T00:00:00.000Z", "updatedAt": "2023-01-01T00:00:00.000Z", "deckCards": [...] }
+ */
 export const getDeckById = async (req: Request, res: Response): Promise<void> => {
     try {
         const deckId = parseInt(req.params.id)
@@ -63,6 +97,20 @@ export const getDeckById = async (req: Request, res: Response): Promise<void> =>
     }
 }
 
+/**
+ * Updates an existing deck belonging to the authenticated user.
+ * Validates updated deck requirements and ensures ownership.
+ * @param {Request} req - Express request object with deck ID in params, update data in body, and user authentication
+ * @param {Response} res - Express response object
+ * @returns {Promise<void>} JSON response with updated deck or error
+ * @throws {Error} Returns 400 for invalid deck ID or validation errors
+ * @throws {Error} Returns 404 if deck not found or doesn't belong to user
+ * @throws {Error} Returns 500 for internal server errors
+ * @example
+ * PUT /api/decks/1
+ * Body: { "name": "Updated Deck", "cards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] }
+ * Response: { "id": 1, "name": "Updated Deck", "userId": 1, "createdAt": "2023-01-01T00:00:00.000Z", "updatedAt": "2023-01-01T00:00:00.000Z", "deckCards": [...] }
+ */
 export const updateDeck = async (req: Request, res: Response): Promise<void> => {
     try {
         const deckId = parseInt(req.params.id)
@@ -95,6 +143,19 @@ export const updateDeck = async (req: Request, res: Response): Promise<void> => 
     }
 }
 
+/**
+ * Deletes a deck belonging to the authenticated user.
+ * Permanently removes the deck and all its associated cards.
+ * @param {Request} req - Express request object with deck ID in params and user authentication
+ * @param {Response} res - Express response object
+ * @returns {Promise<void>} JSON response with success message or error
+ * @throws {Error} Returns 400 for invalid deck ID
+ * @throws {Error} Returns 404 if deck not found or doesn't belong to user
+ * @throws {Error} Returns 500 for internal server errors
+ * @example
+ * DELETE /api/decks/1
+ * Response: { "message": "Deck deleted successfully" }
+ */
 export const deleteDeck = async (req: Request, res: Response): Promise<void> => {
     try {
         const deckId = parseInt(req.params.id)
