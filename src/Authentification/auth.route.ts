@@ -6,7 +6,21 @@ import { env } from '../env'
 
 export const authRouter = Router()
 
-// POST /api/auth/sign-up
+/**
+ * POST /api/auth/sign-up
+ * Creates a new user account with email, username, and password.
+ * Hashes the password and generates a JWT token for authentication.
+ * @param {Request} req - Express request object containing user data in body
+ * @param {Response} res - Express response object
+ * @returns {Promise<void>} JSON response with token and user info or error
+ * @throws {Error} Returns 400 if required fields are missing
+ * @throws {Error} Returns 409 if email is already in use
+ * @throws {Error} Returns 500 for internal server errors
+ * @example
+ * POST /api/auth/sign-up
+ * Body: { "email": "user@example.com", "username": "testuser", "password": "password123" }
+ * Response: { "token": "jwt-token", "user": { "id": 1, "email": "user@example.com", "username": "testuser", "createdAt": "2023-01-01T00:00:00.000Z" } }
+ */
 authRouter.post('/sign-up', async (req: Request, res: Response) => {
     try {
         const { email, username, password } = req.body
@@ -64,7 +78,21 @@ authRouter.post('/sign-up', async (req: Request, res: Response) => {
     }
 })
 
-// POST /api/auth/sign-in
+/**
+ * POST /api/auth/sign-in
+ * Authenticates a user with email and password.
+ * Verifies credentials and generates a JWT token for authenticated sessions.
+ * @param {Request} req - Express request object containing login credentials in body
+ * @param {Response} res - Express response object
+ * @returns {Promise<void>} JSON response with token and user info or error
+ * @throws {Error} Returns 400 if required fields are missing
+ * @throws {Error} Returns 401 if email or password is invalid
+ * @throws {Error} Returns 500 for internal server errors
+ * @example
+ * POST /api/auth/sign-in
+ * Body: { "email": "user@example.com", "password": "password123" }
+ * Response: { "token": "jwt-token", "user": { "id": 1, "email": "user@example.com", "username": "testuser", "createdAt": "2023-01-01T00:00:00.000Z" } }
+ */
 authRouter.post('/sign-in', async (req: Request, res: Response) => {
     try {
         const { email, password } = req.body
@@ -128,6 +156,14 @@ declare global {
     }
 }
 
+/**
+ * Middleware to authenticate JWT tokens.
+ * Verifies the JWT token from the Authorization header and attaches user info to the request.
+ * @param {Request} req - Express request object with potential Authorization header
+ * @param {Response} res - Express response object
+ * @param {NextFunction} next - Express next function to continue to the next middleware
+ * @throws {Error} Returns 401 if token is missing or invalid
+ */
 export const authenticateToken = (
     req: Request,
     res: Response,

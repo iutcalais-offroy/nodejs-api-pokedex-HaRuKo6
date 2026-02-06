@@ -3,7 +3,17 @@ import { prisma } from '../database'
 
 export const cardsRouter = Router()
 
-// GET /api/cards
+/**
+ * GET /api/cards
+ * Retrieves all cards from the database, sorted by Pokedex number.
+ * @param {Request} _req - Express request object (not used)
+ * @param {Response} res - Express response object
+ * @returns {Promise<void>} JSON response with array of cards or error
+ * @throws {Error} Returns 500 for internal server errors
+ * @example
+ * GET /api/cards
+ * Response: [{ "id": 1, "name": "Bulbasaur", "pokedexNumber": 1, ... }, ...]
+ */
 cardsRouter.get('/', async (_req: Request, res: Response) => {
     try {
         // Récupérer toutes les cartes triées par pokedexNumber croissant
