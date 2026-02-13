@@ -15,7 +15,6 @@ COPY . .
 ENV DATABASE_URL="postgresql://tcg_user:tcg_password@localhost:5434/tcg_database"
 
 RUN npx prisma generate
-RUN npm run prebuild
 RUN npm run build
 
 
