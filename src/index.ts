@@ -5,14 +5,14 @@ import cors from 'cors'
 import { authRouter } from './Authentification/auth.route'
 import { cardsRouter } from './Cards/cards.route'
 import { deckRouter } from './deck/deck.route'
-
+import Do
 
 
 
 // Create Express app
 export const app = express()
 
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT || 3000
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
@@ -63,7 +63,8 @@ if (require.main === module) {
   try {
     httpServer.listen(PORT, () => {
       console.log(`\n🚀 Server is running on http://localhost:${env.PORT}`)
-      console.log(`\n🧪 Socket.io Test Client available at http://localhost:${env.PORT}`,
+      console.log(`\n
+        🧪 Socket.io Test Client available at http://localhost:${env.PORT}`,
       )
     })
   } catch (error) {
