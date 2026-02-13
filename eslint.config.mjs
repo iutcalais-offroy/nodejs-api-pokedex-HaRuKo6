@@ -7,7 +7,7 @@ export default [
   ...tseslint.configs.recommended,
   eslintPluginPrettier,
   {
-    ignores: ['dist', 'node_modules', 'public'],
+    ignores: ['dist', 'node_modules', 'public', 'test'],
   },
   {
     files: ['public/**/*.js'],

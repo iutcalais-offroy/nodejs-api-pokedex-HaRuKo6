@@ -1,0 +1,2 @@
+chmod +x .husky/commit-msg
+npx --no -- commitlint --edit $1
