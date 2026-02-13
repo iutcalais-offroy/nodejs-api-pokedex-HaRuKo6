@@ -24,6 +24,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "prepare": "husky"
+
   },
   "dependencies": {
     "@prisma/adapter-pg": "7.1.0",
