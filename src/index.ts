@@ -6,8 +6,17 @@ import { authRouter } from './Authentification/auth.route'
 import { cardsRouter } from './Cards/cards.route'
 import { deckRouter } from './deck/deck.route'
 
+
+
+
 // Create Express app
 export const app = express()
+
+const PORT = process.env.PORT || 3000
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`)
+})
 
 // Middlewares
 app.use(
@@ -52,10 +61,9 @@ if (require.main === module) {
 
   // Start server
   try {
-    httpServer.listen(env.PORT, () => {
+    httpServer.listen(PORT, () => {
       console.log(`\n🚀 Server is running on http://localhost:${env.PORT}`)
-      console.log(
-        `🧪 Socket.io Test Client available at http://localhost:${env.PORT}`,
+      console.log(`\n🧪 Socket.io Test Client available at http://localhost:${env.PORT}`,
       )
     })
   } catch (error) {
@@ -63,3 +71,5 @@ if (require.main === module) {
     process.exit(1)
   }
 }
+
+console.log('test');
