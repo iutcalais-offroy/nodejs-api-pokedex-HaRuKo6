@@ -12,7 +12,7 @@ RUN npm install
 # Copie du reste du code et build
 COPY . .
 
-ENV DATABASE_URL="postgresql://tcg_user:tcg_password@localhost:5434/tcg_database"
+ENV DATABASE_URL="postgresql://postgres:WlAVfsDBESzYQrkGUesbEbZvTEClVjNK@postgres.railway.internal:5432/railway"
 
 RUN npx prisma generate
 RUN npm run build
