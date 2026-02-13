@@ -5,7 +5,6 @@ import cors from 'cors'
 import { authRouter } from './Authentification/auth.route'
 import { cardsRouter } from './Cards/cards.route'
 import { deckRouter } from './deck/deck.route'
-import Do
 
 
 
@@ -63,9 +62,7 @@ if (require.main === module) {
   try {
     httpServer.listen(PORT, () => {
       console.log(`\n🚀 Server is running on http://localhost:${env.PORT}`)
-      console.log(`\n
-        🧪 Socket.io Test Client available at http://localhost:${env.PORT}`,
-      )
+      console.log(`\n🧪 Socket.io Test Client available at http://localhost:${env.PORT}`)
     })
   } catch (error) {
     console.error('Failed to start server:', error)
@@ -73,4 +70,4 @@ if (require.main === module) {
   }
 }
 
-console.log('test');
+console.log('test')
