@@ -20,7 +20,9 @@
     "db:seed": "npm run db:generate && tsx prisma/seed.ts",
     "db:reset": "npm run db:generate && prisma migrate reset --force && npm run db:seed",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@prisma/adapter-pg": "7.1.0",
@@ -50,6 +52,9 @@
     "@types/uuid": "10.0.0",
     "@vitest/coverage-v8": "4.0.15",
     "@vitest/ui": "4.0.15",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "prettier": "^3.8.1",
     "tsx": "4.7.0",
     "typescript": "5.4.5",
     "typescript-eslint": "^8.55.0",
