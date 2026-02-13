@@ -1,6 +1,12 @@
 import { Router } from 'express'
 import { authenticateToken } from '../Authentification/auth.route'
-import { createDeck, getUserDecks, getDeckById, updateDeck, deleteDeck } from './deck.contoleur'
+import {
+  createDeck,
+  getUserDecks,
+  getDeckById,
+  updateDeck,
+  deleteDeck,
+} from './deck.contoleur'
 
 export const deckRouter = Router()
 
