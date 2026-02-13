@@ -8,7 +8,6 @@ WORKDIR /app
 
 # Copie des fichiers de dépendances
 COPY package*.json ./
-COPY prisma ./prisma/
 
 # Installation des dépendances
 RUN npm ci
@@ -23,12 +22,9 @@ RUN npm run build
 
 WORKDIR /app
 
-# On ne copie que le nécessaire pour alléger l'image
-COPY --from=builder /app/package*.json ./
 
 # Variable d'environnement par défaut
 ENV NODE_ENV=production
 
-EXPOSE 3000
 
 CMD ["node", "dist/index.js"]
