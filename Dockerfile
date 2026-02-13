@@ -1,8 +1,5 @@
 # 1. Étape de construction (Build)
-FROM node:20-slim AS builder
-
-# Installation d'openssl pour Prisma
-RUN apt-get update && apt-get install -y openssl
+FROM node:20
 
 WORKDIR /app
 
@@ -10,7 +7,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Installation des dépendances
-RUN npm ci
+RUN npm install
 
 # Copie du reste du code et build
 COPY . .
